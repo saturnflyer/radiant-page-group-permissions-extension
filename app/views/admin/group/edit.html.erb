@@ -5,6 +5,9 @@
 <% end -%>
 
 <% form_for :group, :method => 'post' do |f| %>
+<%- if protect_against_forgery? -%>
+  <input type="hidden" name="<%= request_forgery_protection_token %>" value="<%= escape_javascript form_authenticity_token %>" />
+<%- end -%>
 <table class="fieldset" cellpadding="0" cellspacing="0" border="0">
     <tr>
         <td class="label"><label for="group_name">Name</label></td>
