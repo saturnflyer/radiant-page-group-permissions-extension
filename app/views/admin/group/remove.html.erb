@@ -19,8 +19,5 @@
 </table>
 
 <% form_tag "", :method => 'post' do %>
-<%- if protect_against_forgery? -%>
-  <input type="hidden" name="<%= request_forgery_protection_token %>" value="<%= escape_javascript form_authenticity_token %>" />
-<%- end -%>
   <p class="buttons"><%= submit_tag "Delete Group", :class => 'button' %> or <%= link_to 'Cancel', group_index_url %></p>
 <% end %>
