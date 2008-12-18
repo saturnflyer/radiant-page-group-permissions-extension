@@ -33,7 +33,6 @@ class PageGroupPermissionsExtension < Radiant::Extension
   end
   
   def deactivate
-    admin.tabs.remove "Groups"
   end
   
 end
