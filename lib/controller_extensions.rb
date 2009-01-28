@@ -3,10 +3,11 @@ UserActionObserverExtensions = Proc.new do
 end
 
 PageControllerExtensions = Proc.new do
+    
   only_allow_access_to :new, :edit,
     :if => :user_is_in_page_group,
-    :denied_url => { :controller => 'page', :action => 'index' },
-    :denied_message => 'You must have group privileges to perform this action.'
+    :denied_url => :back,
+    :denied_message => "You must have group privileges to perform this action."
   
   def user_is_in_page_group
     return true if current_user.admin? || current_user.developer?
@@ -24,7 +25,7 @@ PageControllerExtensions = Proc.new do
   before_filter :disallow_group_edits
   def disallow_group_edits
     if params[:page] && !current_user.admin?
-      params[:page].delete(:group_id)
+      params[:page].delete(:group_id.to_s)
     end
   end
 end
