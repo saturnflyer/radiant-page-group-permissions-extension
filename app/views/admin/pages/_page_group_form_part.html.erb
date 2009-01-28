@@ -4,5 +4,5 @@
     <select id="page_group_id" name="page[group_id]">
         <%= options_for_select(Group.find(:all, :order => 'name ASC').map{|g| [g.name, g.id]}.unshift(['—', '']), (@page.group.nil? ? '' : @page.group.id)) %>
     </select>
-</p
+</p>
 <%- end -%>

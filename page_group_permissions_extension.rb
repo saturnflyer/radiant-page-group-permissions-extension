@@ -23,7 +23,7 @@ class PageGroupPermissionsExtension < Radiant::Extension
   def activate
     User.module_eval &UserModelExtensions
     Page.module_eval &PageModelExtensions
-    Admin::PageController.module_eval &PageControllerExtensions
+    Admin::PagesController.module_eval &PageControllerExtensions
     UserActionObserver.module_eval &UserActionObserverExtensions
     
     admin.tabs.add "Groups", "/admin/groups", :after => "Layouts", :visibility => [:admin]
