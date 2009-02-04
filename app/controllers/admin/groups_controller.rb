@@ -1,7 +1,7 @@
 class Admin::GroupsController < Admin::ResourceController
   model_class Group
 
-  only_allow_access_to :add_page, :add_member, :remove_member, :new, :edit, :remove, :index,
+  only_allow_access_to :add_page, :add_member, :remove_member, :new, :create, :update, :edit, :remove, :index,
   :when => [:admin],
   :denied_url => { :controller => 'page', :action => 'index' },
   :denied_message => 'You must have administrator privileges to perform this action.'
@@ -45,10 +45,10 @@ class Admin::GroupsController < Admin::ResourceController
   end
 
   def remove_member
-    @group = Group.find params[:id]
-    @user = User.find params[:user_id]
+    @group = Group.find params[:group_id]
+    @user = User.find params[:id]
     
-    if request.post?
+    if request.delete?
       @group.users.delete @user
       @group.save
       flash[:notice] = "#{@user.name} removed from #{@group.name}."

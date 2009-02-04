@@ -5,29 +5,29 @@ require_dependency 'controller_extensions'
 require_dependency 'application'
 
 class PageGroupPermissionsExtension < Radiant::Extension
-  version "0.1"
+  version "0.2"
   description "Allows you to organize your users into groups and apply group based edit permissions to the page heirarchy."
   url "http://matt.freels.name"
   
   define_routes do |map|
-    if ActiveRecord::Base.connection.tables.include?('groups')
+    if Group.table_exists?
+      map.namespace :admin do |admin|
+        admin.resources :groups
+      end
       map.with_options(:controller => 'admin/groups') do |group|
-        group.group_index 'admin/groups', :action => 'index'
-        group.group_edit 'admin/groups/edit/:id',             :action => 'edit'
-        group.group_new 'admin/groups/new',                  :action => 'new'
-        group.group_remove 'admin/groups/remove/:id',           :action => 'remove'  
-        group.group_add_member 'admin/groups/add_member/:id',           :action => 'add_member'  
-        group.group_remove_member 'admin/groups/remove_member/:id',           :action => 'remove_member'  
+        group.remove_admin_group 'admin/groups/:id/remove', :action => 'remove', :conditions => {:method => :get}
+        group.add_member_admin_group 'admin/groups/:id/add_member', :action => 'add_member', :conditions => {:method => :post}
+        group.remove_member_admin_group 'admin/groups/:group_id/remove_member/:id', :action => 'remove_member'
       end
     end
   end
   
   def activate
-    if ActiveRecord::Base.connection.tables.include?('groups')
+    if Group.table_exists?
       User.module_eval &UserModelExtensions
       Page.module_eval &PageModelExtensions
       Admin::PagesController.module_eval &PageControllerExtensions
-      UserActionObserver.module_eval &UserActionObserverExtensions
+      UserActionObserver.instance.send :add_observer!, Group
     
       admin.tabs.add "Groups", "/admin/groups", :after => "Layouts", :visibility => [:admin]
       admin.pages.index.add :node, "page_group_td", :before => "status_column"

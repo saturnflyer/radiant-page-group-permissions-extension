@@ -67,7 +67,7 @@
             <small class="note"><%=h group.notes %></small>
         </td>
         <td class="add-child">
-            <% form_tag group_add_member_url(:id => group) do %>
+            <% form_tag add_member_admin_group_path(group) do %>
                 <select name="user_id", id="user_id">
                     <%= options_for_select User.find(:all, :order => 'name ASC').map{|u| [u.name, u.id]}.unshift(['—', '']) %>
                 </select>
@@ -75,7 +75,7 @@
             <% end %>
         </td>
         <td class="remove">
-            <%= link_to image('remove', :alt => 'Remove Group'), group_remove_url(:id => group) %>
+            <%= link_to image('remove', :alt => 'Remove Group'), remove_admin_group_path(group) %>
         </td>
     </tr>
         <%- group.users.each do |user| -%>
@@ -84,7 +84,7 @@
                 <%= link_to user.name, edit_admin_user_path(user) %>
             </td>
             <td class="remove">
-                <%= link_to image_tag('page_group_permissions/remove-member.png', :alt => 'Remove Group Member'), group_remove_member_url(:id => group, :user_id => user) %>
+                <%= link_to image_tag('page_group_permissions/remove-member.png', :alt => 'Remove Group Member'), remove_member_admin_group_path(group, user) %>
             </td>
         </tr>
         <%- end -%>

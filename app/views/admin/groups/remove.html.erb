@@ -18,6 +18,6 @@
   </tbody>
 </table>
 
-<% form_tag "", :method => 'post' do %>
-  <p class="buttons"><%= submit_tag "Delete Group", :class => 'button' %> or <%= link_to 'Cancel', group_index_url %></p>
+<% form_for :group, :url => admin_group_path(@group), :html => {:method => :delete} do %>
+  <p class="buttons"><%= submit_tag "Delete Group", :class => 'button' %> or <%= link_to 'Cancel', admin_groups_path %></p>
 <% end %>
