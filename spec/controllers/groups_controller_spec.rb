@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe Admin::GroupController do
-  scenario :users
+describe Admin::GroupsController do
+  dataset :users
   
   before do
     @group_1 = Group.create!(:name => 'Z Group 1')
