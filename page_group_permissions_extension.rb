@@ -11,7 +11,7 @@ class PageGroupPermissionsExtension < Radiant::Extension
   
   define_routes do |map|
     if ActiveRecord::Base.connection.tables.include?('groups')
-      map.with_options(:controller => 'admin/group') do |group|
+      map.with_options(:controller => 'admin/groups') do |group|
         group.group_index 'admin/groups', :action => 'index'
         group.group_edit 'admin/groups/edit/:id',             :action => 'edit'
         group.group_new 'admin/groups/new',                  :action => 'new'
@@ -30,9 +30,9 @@ class PageGroupPermissionsExtension < Radiant::Extension
       UserActionObserver.module_eval &UserActionObserverExtensions
     
       admin.tabs.add "Groups", "/admin/groups", :after => "Layouts", :visibility => [:admin]
-      admin.page.index.add :node, "page_group_td", :before => "status_column"
-      admin.page.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
-      admin.page.edit.add :parts_bottom, "page_group_form_part", :after => "edit_timestamp"
+      admin.pages.index.add :node, "page_group_td", :before => "status_column"
+      admin.pages.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
+      admin.pages.edit.add :parts_bottom, "page_group_form_part", :after => "edit_timestamp"
     end
   end
   

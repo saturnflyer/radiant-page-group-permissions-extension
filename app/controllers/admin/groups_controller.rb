@@ -1,4 +1,4 @@
-class Admin::GroupController < Admin::ResourceController
+class Admin::GroupsController < Admin::ResourceController
   model_class Group
 
   only_allow_access_to :add_page, :add_member, :remove_member, :new, :edit, :remove, :index,
