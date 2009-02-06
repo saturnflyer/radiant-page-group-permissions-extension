@@ -1,6 +1,6 @@
 <h1 id="new_page">New Group</h1>
 
-<% form_for :group, :url => group_index_path do |f| %>
+<% form_for :group, :url => admin_groups_path do |f| %>
 <table class="fieldset" cellpadding="0" cellspacing="0" border="0">
     <tr>
         <td class="label"><label for="group_name">Name</label></td>
@@ -16,7 +16,7 @@
 
 <%= updated_stamp @group %>
 <p class="buttons">
-  <%= save_model_button(@group) %> <%= save_model_and_continue_editing_button(@group) %> or <%= link_to "Cancel", group_index_url %>
+  <%= save_model_button(@group) %> <%= save_model_and_continue_editing_button(@group) %> or <%= link_to "Cancel", admin_groups_path %>
 </p>
 
 <% end %>
