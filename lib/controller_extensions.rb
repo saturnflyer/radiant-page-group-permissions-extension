@@ -1,6 +1,6 @@
 PageControllerExtensions = Proc.new do
     
-  only_allow_access_to :new, :edit,
+  only_allow_access_to :new, :edit, :create, :update, :remove, :destroy,
     :if => :user_is_in_page_group,
     :denied_url => :back,
     :denied_message => "You must have group privileges to perform this action."
