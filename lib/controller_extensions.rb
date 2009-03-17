@@ -8,7 +8,7 @@ PageControllerExtensions = Proc.new do
   def user_is_in_page_group
     return true if current_user.admin? || current_user.developer?
     
-    page = Page.find(params[:id] || params[:page_id] || params[:parent_id])
+    page = Page.find(params[:id] || params[:page_id] || params[:parent_id] || params[:page][:parent_id])
     
     until page.nil? do
       return true if page.group_owners.include? current_user
