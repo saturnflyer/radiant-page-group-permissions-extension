@@ -2,7 +2,7 @@ require_dependency 'model_extensions'
 require_dependency 'controller_extensions'
 
 # Uncomment this if you reference any of your controllers in activate
-require_dependency 'application'
+require_dependency 'application_controller'
 
 class PageGroupPermissionsExtension < Radiant::Extension
   version "0.2"
