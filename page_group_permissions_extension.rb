@@ -32,8 +32,15 @@ class PageGroupPermissionsExtension < Radiant::Extension
       Page.module_eval &PageModelExtensions
       Admin::PagesController.module_eval &PageControllerExtensions
       UserActionObserver.instance.send :add_observer!, Group
-    
-      admin.tabs.add "Groups", "/admin/groups", :after => "Layouts", :visibility => [:admin]
+      
+      # admin.tabs is deprecated with 0.9
+      if Radiant::Version.to_s >= "0.9.0"
+        add_tab "Settings" do
+          add_item "Groups", "/admin/groups", :after => "Users", :visibility => [:admin]
+        end
+      else
+        admin.tabs.add "Groups", "/admin/groups", :after => "Layouts", :visibility => [:admin]
+      end
       admin.pages.index.add :node, "page_group_td", :before => "status_column"
       admin.pages.index.add :sitemap_head, "page_group_th", :before => "status_column_header"
       admin.pages.edit.add :parts_bottom, "page_group_form_part", :after => "edit_timestamp"
