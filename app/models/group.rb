@@ -1,5 +1,6 @@
 class Group < ActiveRecord::Base  
-  named_scope :default, :order => "name"
+  #named_scope :default, :order => "name"
+  default_scope :order => "name ASC"
   
   belongs_to :created_by, :class_name => 'User', :foreign_key => 'created_by'
   belongs_to :updated_by, :class_name => 'User', :foreign_key => 'updated_by'
