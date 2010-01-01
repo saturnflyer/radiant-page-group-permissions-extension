@@ -33,8 +33,7 @@ class PageGroupPermissionsExtension < Radiant::Extension
       Admin::PagesController.module_eval &PageControllerExtensions
       UserActionObserver.instance.send :add_observer!, Group
       
-      # admin.tabs is deprecated with 0.9
-      if Radiant::Version.to_s >= "0.9.0"
+      if self.respond_to?(:tab)
         add_tab "Settings" do
           add_item "Groups", "/admin/groups", :after => "Users", :visibility => [:admin]
         end
