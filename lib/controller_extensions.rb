@@ -6,7 +6,7 @@ PageControllerExtensions = Proc.new do
     :denied_message => "You must have group privileges to perform this action."
   
   def user_is_in_page_group
-    return true if current_user.admin? || current_user.developer?
+    return true if current_user.admin? || current_user.designer_or_developer?
     
     page = Page.find(params[:id] || params[:page_id] || params[:parent_id] || params[:page][:parent_id])
     
